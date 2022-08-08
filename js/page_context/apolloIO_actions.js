@@ -5,6 +5,10 @@ function lg(msg){
         console.log(msg);
 }
 
+function end_of_list(){
+    lg("this is end")
+}
+
 async function do_save_list(LIST_QTY=25, PAGES_QTY=5, LIST_NAME) 
 {
     lg(LIST_NAME);
