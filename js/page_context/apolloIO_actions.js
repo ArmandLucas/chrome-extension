@@ -20,7 +20,7 @@ async function do_save_list(LIST_QTY=25, PAGES_QTY=5, LIST_NAME)
 
         if(page!=PAGES_QTY-1){
             await go_next_list_page();
-            await delay(500);
+            await delay(1000);
         }
 	    if(page==4){
             await go_prev_list_page();
@@ -31,7 +31,7 @@ async function do_save_list(LIST_QTY=25, PAGES_QTY=5, LIST_NAME)
 	        page--;
 	        await go_prev_list_page();
 	        page--;
-            await delay(10);
+            await delay(1000);
         }
     }
 	}
@@ -43,18 +43,32 @@ async function click_select_all_option(){
 
     lg("selecting all");
     
-	const SELECT_ALL_option_element = document.getElementsByClassName("zp-button zp_1X3NK zp_vFlhM zp_1Do_s zp_2NNaJ")[0];
-
-	if(SELECT_ALL_option_element){
-        lg("clicking select all");
-        SELECT_ALL_option_element.click();
+	// const SELECT_ALL_option_element = document.getElementsByClassName("zp-button zp_1X3NK zp_vFlhM zp_1Do_s zp_2NNaJ")[0];
+	// const SELECT_ALL_option_element = document.getElementsByClassName("zp_3Upbb zp_oXppb zp_3jMI5")[0];
+    
+	// if(SELECT_ALL_option_element){
+    //     lg("clicking select all");
+    //     SELECT_ALL_option_element.click();
+    // }
+    if(checkbox){
+        lg("clicking checkbox");
+        checkbox.click();
     }
-    
+
 	const SELECT_ALL_apply = document.getElementsByClassName("zp_3Upbb zp_oXppb zp_3jMI5")[0];
-    
+    lg("clicking select all");
 	if(SELECT_ALL_apply){
         lg("clicking apply");
         SELECT_ALL_apply.click();
+    }
+    else{
+        // checkbox.click();
+        // const select_again = document.getElementsByClassName("zp_3Upbb zp_oXppb zp_3jMI5")[0];
+        // if(select_again){
+        //     lg("clicking apply again");
+        //     select_again.click();
+        // }
+        end_of_list();
     }
     
     while(true){
@@ -63,15 +77,16 @@ async function click_select_all_option(){
             break;
         }
         lg("waiting for select all");
-        await delay(100);
+        await delay(500);
     }
     
 	return true;
 }
 
 async function click_save_btn(){
-    const SAVE_BTN = document.getElementsByClassName("zp-button zp_1X3NK zp_2NNaJ zp_2T3rz zp_awepE")[0];
-
+    // const SAVE_BTN = document.getElementsByClassName("zp-button zp_1X3NK zp_2NNaJ zp_2T3rz zp_awepE")[0];
+    const SAVE_BTN = document.getElementsByClassName("zp-button zp_1TrB3 zp_Dxi_A zp_2T3rz zp_awepE")[0];
+    
     if(SAVE_BTN){
         lg("clicking save");
         SAVE_BTN.click();
@@ -83,7 +98,7 @@ async function click_save_btn(){
             break;
         }
         lg("waiting for save");
-        await delay(100);
+        await delay(500);
     }
 }
 
@@ -106,35 +121,36 @@ async function set_input_target_list_to_save(LIST_NAME){
         {
             tracker.setValue( lastValue );
         };
-        
+        lg("Input value", ELEMENT.value);
         ELEMENT.dispatchEvent( event );
     };
 
     lg("setting list name");
     const MODAL_CONTAINER = document.getElementsByClassName("zp_2gRpu")[0];
 	if(MODAL_CONTAINER){
-        const list_name_input = MODAL_CONTAINER.getElementsByClassName("Select-input")[0];
+        const list_name_input = MODAL_CONTAINER.getElementsByClassName("Select-input")[1];
 
 		if(list_name_input)
             set_native_value(list_name_input, LIST_NAME);
 	};
 
-    const SELECT_MENU = document.getElementsByClassName("Select-menu")[0];
+    // const SELECT_MENU = document.getElementsByClassName("Select-menu")[0];
     
-	if(SELECT_MENU){
-        const FIRST_OPTION = SELECT_MENU.children[0];
+	// if(SELECT_MENU){
+    //     const FIRST_OPTION = SELECT_MENU.children[0];
         
-		if(FIRST_OPTION)
-            FIRST_OPTION.click();
-	};
+	// 	if(FIRST_OPTION)
+    //         FIRST_OPTION.click();
+	// };
+    // document.getElementsByClassName("zp-badge zp_3VQL3 zp_j2v0H zp-select-badge")[0].children[0].children[0].textContent = LIST_NAME;
 
     while(true){
-        if(document.getElementsByName("undefined-new-labelNames")[0].value!=null){
+        if(document.getElementsByName("undefined-new-labelNames")[0]?.value!=null){
             lg("list name set");
             break;
         }
         lg("waiting for list name");
-        await delay(100);
+        await delay(500);
     }
 }
 
@@ -152,17 +168,18 @@ async function click_confirm_save_btn(){
             break;
         }
         lg("waiting for confirm");
-        await delay(10);
+        await delay(500);
     }
 
     
-
+    // zp-button zp_1TrB3 zp_31uFu zp_1wtuu
     // lg("clicking close");
     // document.getElementsByClassName("zp_2Njps")[0].children[2].click();
 }
 
 async function go_next_list_page(){
-	const NEXT_LIST_BTN = document.getElementsByClassName ("zp-button zp_1X3NK zp_2MfK3 zp_U8yMM")[1];
+	// const NEXT_LIST_BTN = document.getElementsByClassName ("zp-button zp_1X3NK zp_2MfK3 zp_U8yMM")[1];
+	const NEXT_LIST_BTN = document.getElementsByClassName ("zp-button zp_1TrB3 zp_31uFu zp_1wtuu")[2];
 
 	if(NEXT_LIST_BTN){
         lg("clicking next page");
@@ -181,7 +198,8 @@ async function go_next_list_page(){
 
 
 async function go_prev_list_page(){
-	const PREV_LIST_BTN = document.getElementsByClassName ("zp-button zp_1X3NK zp_2MfK3 zp_U8yMM")[0];
+	const PREV_LIST_BTN = document.getElementsByClassName ("zp-button zp_1TrB3 zp_31uFu zp_1wtuu")[0];
+	// const PREV_LIST_BTN = document.getElementsByClassName ("zp-button zp_1X3NK zp_2MfK3 zp_U8yMM")[0];
 
 	if(PREV_LIST_BTN){
         lg("clicking next page");
