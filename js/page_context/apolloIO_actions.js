@@ -9,19 +9,20 @@ function end_of_list(){
     lg("this is end")
 }
 
-async function do_save_list(LIST_QTY=25, PAGES_QTY=5, LIST_NAME) 
+async function do_save_list(LIST_QTY=25, PAGES_QTY, LIST_NAME) 
 {
     lg(LIST_NAME);
     lg(LIST_QTY);
+    lg(PAGES_QTY);
     lg("started");
     
-    while (true){
+    // while (true){
 		for(let page = 0; page < PAGES_QTY; page++){
 			await click_select_all_option();
 			await click_save_btn();
 			await set_input_target_list_to_save(LIST_NAME);
 			await click_confirm_save_btn();
-
+            lg("====  page " + page + " done  ====");
         if(page!=PAGES_QTY-1){
             await go_next_list_page();
             await delay(1000);
@@ -38,7 +39,7 @@ async function do_save_list(LIST_QTY=25, PAGES_QTY=5, LIST_NAME)
             await delay(1000);
         }
     }
-	}
+	// }
 }
 
 async function click_select_all_option(){
@@ -132,7 +133,10 @@ async function set_input_target_list_to_save(LIST_NAME){
     lg("setting list name");
     const MODAL_CONTAINER = document.getElementsByClassName("zp_2gRpu")[0];
 	if(MODAL_CONTAINER){
-        const list_name_input = MODAL_CONTAINER.getElementsByClassName("Select-input")[1];
+        let list_name_input;
+        const lists = MODAL_CONTAINER.getElementsByClassName("Select-input");
+        if(lists.length == 1) list_name_input = lists[0];
+        else if(lists.length == 2) list_name_input = lists[1];
 
 		if(list_name_input)
             set_native_value(list_name_input, LIST_NAME);
@@ -183,7 +187,7 @@ async function click_confirm_save_btn(){
 
 async function go_next_list_page(){
 	// const NEXT_LIST_BTN = document.getElementsByClassName ("zp-button zp_1X3NK zp_2MfK3 zp_U8yMM")[1];
-	const NEXT_LIST_BTN = document.getElementsByClassName ("zp-button zp_1TrB3 zp_31uFu zp_1wtuu")[2];
+	const NEXT_LIST_BTN = document.getElementsByClassName ("zp-button zp_1TrB3 zp_31uFu zp_1wtuu")[5];
 
 	if(NEXT_LIST_BTN){
         lg("clicking next page");
@@ -202,7 +206,7 @@ async function go_next_list_page(){
 
 
 async function go_prev_list_page(){
-	const PREV_LIST_BTN = document.getElementsByClassName ("zp-button zp_1TrB3 zp_31uFu zp_1wtuu")[0];
+	const PREV_LIST_BTN = document.getElementsByClassName ("zp-button zp_1TrB3 zp_31uFu zp_1wtuu")[4];
 	// const PREV_LIST_BTN = document.getElementsByClassName ("zp-button zp_1X3NK zp_2MfK3 zp_U8yMM")[0];
 
 	if(PREV_LIST_BTN){
